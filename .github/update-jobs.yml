@@ -1,0 +1,37 @@
+name: 🤖 Update Technical Writing Jobs
+on:
+  schedule:
+    - cron: '0 */6 * * *'        # Every 6 hours
+  workflow_dispatch:             # Manual trigger button
+  push:
+    paths:
+      - 'technical-writing-jobs/fetch-jobs.py'
+      - 'technical-writing-jobs/jobs-template.md'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: ⏭️ Checkout code
+      uses: actions/checkout@v4
+    
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: 📦 Install dependencies
+      run: pip install requests
+    
+    - name: 🔄 Fetch & Update Jobs
+      env:
+        RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+      run: |
+        cd technical-writing-jobs
+        python fetch-jobs.py
+    
+    - name: 💾 Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: '🤖 Update technical writing jobs - {{ github.event_name }}'
+        file_pattern: 'technical-writing-jobs/README.md'
