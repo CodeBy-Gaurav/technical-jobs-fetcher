@@ -27,7 +27,7 @@ jobs:
       env:
         RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
       run: |
-        cd technical-writing-jobs
+    
         python fetch-jobs.py
     
     - name: 💾 Commit changes
