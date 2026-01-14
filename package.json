@@ -1,0 +1,13 @@
+{
+  "name": "technical-jobs-fetcher",
+  "version": "1.0.0",
+  "description": "Fetches technical writing jobs from ATS platforms",
+  "main": "fetch-jobs.js",
+  "scripts": {
+    "fetch": "node fetch-jobs.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "node-fetch": "^3.3.2"
+  }
+}
